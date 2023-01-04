@@ -1,0 +1,24 @@
+﻿@model List<Post>
+@{
+    ViewData["Title"] = ViewBag.Baslik ?? "Posts";
+}
+
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    @ViewData["Title"]
+</h3>
+
+
+
+@foreach (var post in Model)
+{
+    <article class="blog-post">
+        <h2 class="blog-post-title mb-1">@post.Title</h2>
+        <p class="blog-post-meta">
+            <a href="#">Admin</a>
+            @post.CreationDate.ToShortDateString()
+        </p>
+
+        @Html.Raw(post.Content)
+
+    </article>
+}

@@ -1,0 +1,14 @@
+﻿@model List<Category>
+
+    <ol>
+        <li>
+            <a asp-controller="Home" asp-action="Index">All Posts</a>
+        </li>
+
+        @foreach (var c in Model)
+        {
+            <li>
+                <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@c.Id">@c.Name</a>
+            </li>
+        }
+    </ol>
