@@ -9,7 +9,7 @@ namespace Blog.Data
         [Required]
         [MaxLength(400)]
         public string Title { get; set; } = null!;
-        public string? Content { get; set; }
+        public string? Content { get; set; } = "";
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime DateOfUpdate { get; set; } = DateTime.Now;
 
@@ -18,7 +18,7 @@ namespace Blog.Data
         public int CategoryId { get; set; }
 
         //navigation property
-        public List<Category> Categories { get; set; } = null!;
+        public Category Category { get; set; } = null!;
 
     }
 }
