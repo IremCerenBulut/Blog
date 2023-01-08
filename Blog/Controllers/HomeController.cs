@@ -15,7 +15,7 @@ namespace Blog.Controllers
             _db = db;
         }
 
-        public IActionResult Index(int? categoryId)
+        public IActionResult Index(int? categoryId, int page=1)
         {
             IQueryable<Post> posts=_db.Posts;
             if (categoryId != null)
@@ -23,7 +23,21 @@ namespace Blog.Controllers
                 posts = posts.Where(x => x.CategoryId == categoryId);
                 ViewBag.Title = _db.Categories.Find(categoryId)?.Name;
             }
-            return View(posts.ToList());
+
+            int numberOfPage=(int)Math.Ceiling((double)posts.Count()/Constants.POST_PER_PAGE);
+
+            posts = posts
+                .Skip((page - 1) * Constants.POST_PER_PAGE)
+                .Take(Constants.POST_PER_PAGE);
+
+            var vm = new HomeViewModel()
+            {
+                Posts = posts.ToList(),
+                Page = page,
+                NumberOfPage = numberOfPage
+            };
+
+            return View(vm);
         }
 
         public IActionResult Privacy()

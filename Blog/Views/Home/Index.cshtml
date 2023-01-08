@@ -1,4 +1,4 @@
-﻿@model List<Post>
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = ViewBag.Baslik ?? "Posts";
 }
@@ -9,7 +9,7 @@
 
 
 
-@foreach (var post in Model)
+@foreach (var post in Model.Posts)
 {
     <article class="blog-post">
         <h2 class="blog-post-title mb-1">@post.Title</h2>
@@ -22,3 +22,21 @@
 
     </article>
 }
+<nav class="blog-pagination" aria-label="Pagination">
+    @if (Model.OldSkirts)
+    {
+        <a class="btn btn-outline-primary rounded-pill" asp-route-page="@(Model.Page+1)" asp-route-categoryId="@Model.CategoryId">Older</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-primary rounded-pill disabled">Older</a>
+    } @if (Model.NewComer)
+    {
+        <a class="btn btn-outline-primary rounded-pill" asp-route-page="@(Model.Page-1)" asp-route-categoryId="@Model.CategoryId">Newer</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-secondary rounded-pill disabled">Newer</a>
+    }
+    
+</nav>
